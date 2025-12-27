@@ -89,7 +89,8 @@
             </div>
             <div class="stat-card" style="flex: 1;">
                 <p>COMPLETED STEPS</p>
-                <div id="step-count" class="h-large">1,420 / 8,000</div>
+                <div id="step-count" class="h-large">0 / 1774</div>
+                <p id="live-time" style="font-size: 10px; opacity: 0.5;">SYNCING...</p>
             </div>
         </div>
 
@@ -121,10 +122,21 @@
             }
         });
 
+        let stepCounter = 0;
+        const totalSteps = 1774;
+
         // Simulate real-time updates
         setInterval(() => {
+            // Update Tension
             const nextVal = 3 + Math.random() * 4;
             document.getElementById('tension-val').innerText = nextVal.toFixed(1) + "N";
+
+            // Update Steps (Simulating at ~10 steps per second to match hive_engine.py)
+            stepCounter = (stepCounter + 10) % totalSteps;
+            document.getElementById('step-count').innerText = `${stepCounter.toLocaleString()} / ${totalSteps.toLocaleString()}`;
+
+            // Update Timestamp
+            document.getElementById('live-time').innerText = "LAST SYNC: " + new Date().toLocaleTimeString();
 
             tensionChart.data.datasets[0].data.shift();
             tensionChart.data.datasets[0].data.push(nextVal);
