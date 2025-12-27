@@ -164,16 +164,56 @@ on the left side. Subtle labels pointing to each component. Engineering diagram 
 clean vector-like lines, professional technical documentation illustration.
 ```
 
-### Prompt 3: Exploded View (Assembly Guide)
+### Prompt 3: Exploded Assembly Guide (Exact Design)
 ```
-Exploded view diagram of a DIY CNC wire bending machine showing all components 
-separated but aligned along their assembly axes. Components include: ESP32-S3 
-development board, three NEMA 17 stepper motors, three A4988 driver boards, 
-3D printed black frame pieces (base plate, motor mounts, bending arm, roller 
-housing), two 608 bearings, two knurled feed rollers, one curved bending die, 
-shaft couplers, and mounting screws. White background, technical illustration 
-style, assembly manual aesthetic, numbered callouts for each part.
+Technical exploded view diagram of the LCG Wire Bender v0.1, isometric perspective, 
+white background. Components separated along vertical assembly axis with dotted 
+guide lines showing where each part connects.
+
+FROM BOTTOM TO TOP:
+
+LAYER 1 - BASE:
+- Rectangular 3D-printed black PLA base plate (200mm x 150mm x 8mm) with four 
+  corner mounting holes and three motor mount cutouts
+
+LAYER 2 - ELECTRONICS (mounted under base):
+- 1x black ESP32-S3 DevKit board (50mm x 25mm) with visible USB-C port on left side
+- 3x green A4988 stepper driver boards (20mm x 15mm each) arranged in a row, 
+  each with a small silver aluminum heatsink on top
+- Colored jumper wires connecting drivers to ESP32
+
+LAYER 3 - FEED MECHANISM (left side of base):
+- 1x NEMA 17 stepper motor (42mm x 42mm x 40mm, black with round shaft) 
+  mounted vertically, shaft pointing up
+- 2x knurled aluminum feed rollers (15mm diameter, 8mm wide) mounted on 
+  608 bearings, positioned to grip wire between them
+- 5mm to 5mm silver aluminum flexible shaft coupler connecting motor to drive roller
+- Wire path enters horizontally from left through the roller gap
+
+LAYER 4 - BEND MECHANISM (center of base):
+- 1x NEMA 17 stepper motor mounted horizontally, shaft pointing toward center
+- 1x 3D-printed black bending arm (80mm long, L-shaped) attached to motor shaft
+- 1x cylindrical stainless steel bending die (10mm diameter, 15mm tall) 
+  mounted at the pivot point where wire wraps around
+- Small silver set screw visible on the bending arm hub
+
+LAYER 5 - Z-ROTATE MECHANISM (top, center):
+- 1x NEMA 17 stepper motor mounted vertically on a 3D-printed black tower bracket
+- Motor shaft points downward, connected to a rotating platform
+- The entire bend mechanism (Layer 4) sits on this rotating platform
+- 5mm shaft coupler connecting motor to platform
+
+LAYER 6 - ACCESSORIES (floating to the side):
+- 1x spool of copper wire (80mm diameter) on a simple wire spool holder
+- 1x 12V black power supply brick with barrel connector
+- 3x small black micro limit switches
+- Assorted M3 and M4 black oxide screws and nuts
+
+STYLE: Clean technical illustration, matte colors, subtle shadows, numbered 
+callout labels (1-18) pointing to each component with thin leader lines. 
+IKEA assembly manual aesthetic. No text labels, only numbers.
 ```
+
 
 ### Prompt 4: In Action (Market Demo)
 ```
