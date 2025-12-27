@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCG: Weave Guide</title>
+    <style>
+        body { margin: 0; background: #121212; color: white; font-family: -apple-system, sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { padding: 20px; border-bottom: 1px solid #333; text-align: center; }
+        #canvas-container { flex: 1; position: relative; background: radial-gradient(circle, #1a1a1a, #000); }
+        #info-panel { padding: 20px; background: #1e1e1e; border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+        .btn { background: #8b9d77; color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 8px; cursor: pointer; }
+        .btn:active { background: #6b7a5a; }
+        #stats { font-family: monospace; }
+        .badge { background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-left: 10px; }
+        #step-ui { position: absolute; top: 20px; left: 20px; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LCG: Weave Guide</h1>
+        <div id="project-name">Project: Knitted Polar Bear <span class="badge">V1.0</span></div>
+    </header>
+
+    <div id="canvas-container">
+        <!-- SVG for top-down representation -->
+        <svg id="guide-svg" width="100%" height="100%" viewBox="0 0 600 600" style="width:100%; height:100%;">
+            <g id="full-spiral" opacity="0.3"></g>
+            <g id="active-step"></g>
+        </svg>
+        <div id="step-ui">
+            <h2 id="current-step-display">Step 1 / 0</h2>
+            <p id="instruction">Gather your starter heart.</p>
+        </div>
+    </div>
+
+    <div id="info-panel">
+        <button class="btn" onclick="prevStep()">BACK</button>
+        <div id="stats">
+            <div>STITCH: <span id="stitch-coord">0, 0, 0</span></div>
+            <div>TENSION: <span style="color:#8b9d77">STABLE</span></div>
+        </div>
+        <button class="btn" onclick="nextStep()">NEXT STITCH</button>
+    </div>
+
+    <script>
+        let pathData = [];
+        let stitchData = [];
+        let currentIdx = 0;
+
+        // Load CSV Data via fetch (Requires local server, for now we will inline a small sample or use JS logic)
+        async function init() {
+            // In a real local server environment, we'd fetch the CSVs
+            // For this 'awesome' demo, we'll simulate the first 100 points
+            // to show you the UI logic.
+            for(let i=0; i<100; i++) {
+                let theta = i * 0.5;
+                let r = 50 + i * 0.5;
+                pathData.push({x: r * Math.cos(theta), y: r * Math.sin(theta), z: i * 0.1});
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            const svgGroup = document.getElementById('active-step');
+            const spiralGroup = document.getElementById('full-spiral');
+            
+            // Draw progress
+            let points = pathData.slice(0, currentIdx + 1).map(p => `${p.x + 300},${p.y + 300}`).join(' ');
+            svgGroup.innerHTML = `<polyline points="${points}" stroke="#8b9d77" stroke-width="4" fill="none" />`;
+            svgGroup.innerHTML += `<circle cx="${pathData[currentIdx].x + 300}" cy="${pathData[currentIdx].y + 300}" r="8" fill="#FFF" />`;
+            
+            document.getElementById('current-step-display').innerText = `Stitch ${currentIdx + 1} / ${pathData.length}`;
+            document.getElementById('stitch-coord').innerText = `${pathData[currentIdx].x.toFixed(1)}, ${pathData[currentIdx].y.toFixed(1)}, ${pathData[currentIdx].z.toFixed(1)}`;
+            
+            if (currentIdx > 10) {
+                document.getElementById('instruction').innerText = "Loop the palmetto strip through the previous row and pull tight.";
+            }
+        }
+
+        function nextStep() {
+            if (currentIdx < pathData.length - 1) {
+                currentIdx++;
+                updateUI();
+            }
+        }
+
+        function prevStep() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                updateUI();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

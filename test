@@ -1,0 +1,40 @@
+I've created a separate Git worktree for your Gemini version!
+
+🏗️ Worktree Details
+Path: C:\PROJECTS\Sweetgrass-gemini
+Branch: gemini-conductor-v1
+This keeps your Gemini experimentation completely isolated from the Claude version you're working on in the main directory.
+
+🔑 Important Next Step
+Since this new folder is outside my current authorized workspace (C:\PROJECTS\Sweetgrass), I cannot see or edit the files in the Gemini worktree yet.
+
+To let me proceed with the Conductor setup:
+
+Add the new folder to your workspace in your editor.
+Once you've done that, I'll be able to run /conductor:setup in that specific directory and help you brainstorm the spec!
+💡 Brainstorming Strategy
+Once I have access, here is the plan for the Gemini tree:
+
+Ingest: I'll read your initial brainstorm.md.
+Define: We'll run gemini /conductor:setup to define the "Product Intent" and "Tech Stack" specifically for this fork.
+Track: We'll create a "Brainstorm Track" to turn your notes into a formal spec.md.
+Ready to move to the new worktree? Just let me know once you've added it to the workspace!
+
+Good
+Bad
+Review Changes
+What? just add it
+
+
+Add context
+Images
+Mentions
+Workflows
+
+Conversation mode
+Planning
+Agent can plan before executing tasks. Use for deep research, complex tasks, or collaborative work
+Fast
+Agent will execute tasks directly. Use for simple tasks that can be completed faster
+
+Gemini 3 Flash

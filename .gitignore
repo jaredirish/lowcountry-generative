@@ -1,0 +1,6 @@
+Knitted Polar Bear - 7219009/
+*.csv
+*.svg
+__pycache__/
+.venv/
+node_modules/

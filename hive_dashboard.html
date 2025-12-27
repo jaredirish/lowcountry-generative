@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCG Hive: Live Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: 100vh;
+        }
+
+        aside {
+            background: #111;
+            border-right: 1px solid #333;
+            padding: 20px;
+        }
+
+        main {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        .h-large {
+            font-size: 32px;
+            color: #8b9d77;
+            margin: 10px 0;
+        }
+
+        .signal {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .online {
+            background: #4caf50;
+            box-shadow: 0 0 10px #4caf50;
+        }
+
+        canvas {
+            background: #111;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <aside>
+        <h2>LCG Hive v0.1</h2>
+        <div class="stat-card">
+            <p><span class="signal online"></span> STATUS: RUNNING</p>
+            <p>NODE: ESP32-S3-BETA-01</p>
+        </div>
+        <br>
+        <div class="stat-card">
+            <p>CURRENT MATERIAL</p>
+            <div class="h-large">Sweetgrass</div>
+            <p>Threshold: 15.0N</p>
+        </div>
+    </aside>
+
+    <main>
+        <div style="display: flex; gap: 20px;">
+            <div class="stat-card" style="flex: 1;">
+                <p>LIVE TENSION</p>
+                <div id="tension-val" class="h-large">4.2N</div>
+            </div>
+            <div class="stat-card" style="flex: 1;">
+                <p>COMPLETED STEPS</p>
+                <div id="step-count" class="h-large">1,420 / 8,000</div>
+            </div>
+        </div>
+
+        <canvas id="tensionChart"></canvas>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('tensionChart').getContext('2d');
+        const tensionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: 20 }, (_, i) => i),
+                datasets: [{
+                    label: 'Tension (Newtons)',
+                    data: [2, 3, 4, 3, 5, 2, 4, 6, 4, 3, 2, 4, 5, 4, 3, 4, 2, 4, 3, 4],
+                    borderColor: '#8b9d77',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(139, 157, 119, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#222' } },
+                    x: { grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const nextVal = 3 + Math.random() * 4;
+            document.getElementById('tension-val').innerText = nextVal.toFixed(1) + "N";
+
+            tensionChart.data.datasets[0].data.shift();
+            tensionChart.data.datasets[0].data.push(nextVal);
+            tensionChart.update('none');
+        }, 1000);
+    </script>
+</body>
+
+</html>
